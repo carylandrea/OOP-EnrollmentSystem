@@ -16,7 +16,7 @@ public class Main{
         b.setProgram("Computer Programming");
 
         c.setCourseID(0001);
-        c.setCourseName("Intergrative Programming");
+        c.setCourseName("Integrative Programming");
         c.setCourseProgram("Information Technology");
 
         s.display();
