@@ -7,7 +7,7 @@ public class Main{
         Student s = new Student();
         Course c = new Course();
 
-        s.setID(1200014314);
+        s.setID(12000555);
         s.setName("Caryl");
         s.setProgram("Information Technology");
 
