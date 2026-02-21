@@ -1,4 +1,4 @@
-package org.example;
+package org.example.model;
 
 public class Course {
     private int courseID;
@@ -13,7 +13,6 @@ public class Course {
         this.courseID = courseID;
         this.courseName = courseName;
         this.courseProgram = courseProgram;
-
     }
 
     public int getCourseID() {
@@ -33,21 +32,21 @@ public class Course {
 
     public void setCourseName(String courseName) {
         this.courseName = courseName;
+
     }
 
     public String getCourseProgram() {
         return courseProgram;
+
     }
 
     public void setCourseProgram(String courseProgram) {
         this.courseProgram = courseProgram;
-
     }
 
     public void display() {
         System.out.println("Course ID: " + getCourseID());
         System.out.println("Course Name: " + getCourseName());
-        System.out.println("Course Program: " + getCourseProgram()+ "\n");
-
+        System.out.println("Course Program: " + getCourseProgram() + "\n");
     }
 }
