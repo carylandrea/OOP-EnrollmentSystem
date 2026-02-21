@@ -1,4 +1,4 @@
-package org.example.service;
+package org.example.model.service;
 import org.example.model.Student;
 
 import java.util.ArrayList;
