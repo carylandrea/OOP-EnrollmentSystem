@@ -4,11 +4,19 @@ import org.example.model.Student;
 import org.example.service.CourseRegistration;
 import org.example.service.StudentRegistration;
 import org.example.service.StudentRegistration;
+import org.example.service.TuitionFeePayment;
 
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
+        TuitionFeePayment tuitionFeePayment = new TuitionFeePayment();
+        System.out.println(tuitionFeePayment.calculateTuitionFee(3,0.1));
+        tuitionFeePayment.makePayment(2700);
+
+        System.out.println(tuitionFeePayment.getBalance());
+        System.out.println(tuitionFeePayment.isFullyPaid());
 
         /*Student stud = new Student();
         Student stud1 = new Student();

@@ -9,3 +9,12 @@ Author: Caryl Andrea T. Fermin
 
 ## **Inheritance**
 ![img.png](img.png)
+
+
+## **Abstraction**
+Person Abstraction
+![Activity_Person.png](src/main/resources/images/Activity_Person.png)
+Student Abstraction
+![Activity_Student.png](src/main/resources/images/Activity_Student.png)
+Instructor Abstraction
+![Activity_Instructor.png](src/main/resources/images/Activity_Instructor.png)

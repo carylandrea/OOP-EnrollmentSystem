@@ -36,4 +36,10 @@ public class StudentRegistration extends Person {
             break;
         }
     }
+
+    @Override
+    public void mainTask() {
+        System.out.println("Registers students");
+
+    }
 }
