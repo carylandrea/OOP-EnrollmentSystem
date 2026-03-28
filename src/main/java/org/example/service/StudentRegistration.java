@@ -4,15 +4,17 @@ import org.example.model.Student;
 
 import java.util.ArrayList;
 
-public class StudentRegistration extends Person {
+public class StudentRegistration implements StudentReg {
     private static ArrayList<Student> studentLists = new ArrayList();
 
-    public static void saveStudent(Student student) {
+    @Override
+    public void saveStudent(Student student) {
         studentLists.add(student);
 
     }
 
-    public static void displayAllStudent() {
+    @Override
+    public void displayAllStudent() {
         for (Student s : studentLists) {
             System.out.println(s.getpersonID());
             System.out.println(s.getpersonName());
@@ -20,8 +22,8 @@ public class StudentRegistration extends Person {
 
         }
     }
-
-    public static void updateStudent(Student student) {
+    @Override
+    public void updateStudent(Student student) {
         for (int i = 0; i < studentLists.size(); i++) {
             if (studentLists.get(i).getpersonName().equals(student.getpersonName())) {
                 studentLists.set(i, student);
@@ -30,7 +32,8 @@ public class StudentRegistration extends Person {
         }
     }
 
-    public static void removeStudent(Student student) {
+    @Override
+    public void removeStudent(Student student) {
         for (int i = 0; i < studentLists.size(); i++) {
             studentLists.remove(i);
             break;

@@ -1,10 +1,8 @@
 package org.example;
 
 import org.example.model.Student;
-import org.example.service.CourseRegistration;
+import org.example.service.*;
 import org.example.service.StudentRegistration;
-import org.example.service.StudentRegistration;
-import org.example.service.TuitionFeePayment;
 
 import java.util.Scanner;
 
@@ -39,8 +37,7 @@ public class Main {
         stud1.display();
         cour.display();*/
         Scanner scanner = new Scanner(System.in);
-        StudentRegistration studentRegistration = new StudentRegistration();
-        CourseRegistration courseRegistration = new CourseRegistration();
+        CampusRegistrar campusRegistrar = new CampusRegistrar(new StudentRegistration(), new CourseRegistration());
 
         int choice = 0;
 
@@ -68,11 +65,11 @@ public class Main {
                     String program = scanner.nextLine();
 
                     Student student = new Student(studentID, studentName, program);
-                    StudentRegistration.saveStudent(student);
+                    campusRegistrar.saveStudent(student);
                     break;
 
                 case 2:
-                    StudentRegistration.displayAllStudent();
+                    campusRegistrar.displayAllStudent();
                     break;
 
                 case 3:
@@ -87,7 +84,7 @@ public class Main {
                     String updateProgram = scanner.nextLine();
 
                     Student updateStudent = new Student(updateID, updateName, updateProgram);
-                    StudentRegistration.updateStudent(updateStudent);
+                    campusRegistrar.updateStudent(updateStudent);
                     break;
 
                 default:

@@ -5,14 +5,16 @@ import org.example.model.Course;
 import java.util.ArrayList;
 
 
-public class CourseRegistration {
+public class CourseRegistration implements CourseReg {
     private ArrayList<Course> courseList = new ArrayList();
 
+    @Override
     public void saveCourse(Course course) {
         courseList.add(course);
 
     }
 
+    @Override
     public void displayAllCourse() {
         for (Course c : courseList) {
             System.out.println(c.getCourseID());
@@ -21,6 +23,7 @@ public class CourseRegistration {
         }
     }
 
+    @Override
     public void updateCourse(Course course) {
         for (int i = 0; i < courseList.size(); i++) {
             if (courseList.get(i).getCourseName().equals(course.getCourseName())) {
@@ -30,6 +33,7 @@ public class CourseRegistration {
         }
     }
 
+    @Override
     public void removeCourse(Course course){
         for(int i = 0; i < courseList.size(); i++) {
             if (courseList.get(i).getCourseName().equals(course.getCourseName())) {
