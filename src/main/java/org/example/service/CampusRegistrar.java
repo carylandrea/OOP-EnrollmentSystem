@@ -1,15 +1,19 @@
 package org.example.service;
 
 import org.example.model.Course;
+import org.example.model.Department;
 import org.example.model.Student;
 
 public class CampusRegistrar {
     private StudentReg StudentRegistration;
     private CourseReg CourseRegistration;
+    private DepartmentReg DepartmentRegistration;
 
-    public CampusRegistrar(StudentReg StudentRegistration, CourseReg CourseRegistration){
+    public CampusRegistrar(StudentReg StudentRegistration, CourseReg CourseRegistration, DepartmentReg
+            DepartmentRegistration){
         this.StudentRegistration = StudentRegistration;
         this.CourseRegistration = CourseRegistration;
+        this.DepartmentRegistration = DepartmentRegistration;
 
     }
 

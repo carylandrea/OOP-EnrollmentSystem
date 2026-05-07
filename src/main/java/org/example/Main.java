@@ -37,7 +37,8 @@ public class Main {
         stud1.display();
         cour.display();*/
         Scanner scanner = new Scanner(System.in);
-        CampusRegistrar campusRegistrar = new CampusRegistrar(new StudentRegistration(), new CourseRegistration());
+        CampusRegistrar campusRegistrar = new CampusRegistrar(new StudentRegistration(), new CourseRegistration(),
+                new DepartmentReg());
 
         int choice = 0;
 
