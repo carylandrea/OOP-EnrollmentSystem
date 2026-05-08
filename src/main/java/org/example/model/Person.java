@@ -30,6 +30,4 @@ public abstract class Person {
     }
 
     public abstract void mainTask();
-
-    public abstract String getSpecialization();
 }

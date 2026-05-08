@@ -24,11 +24,6 @@ public class Student extends Person {
 
     @Override
     public void mainTask() {
-        System.out.println("Student Enrolled");
-    }
-
-    @Override
-    public String getSpecialization() {
-        return "";
+        System.out.println("A Student is Enrolled");
     }
 }

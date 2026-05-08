@@ -1,87 +1,120 @@
 package org.example;
 
+import org.example.model.Instructor;
 import org.example.model.Student;
 import org.example.service.*;
 import java.util.Scanner;
 
 public class Main {
+    private static Scanner scanner = new Scanner(System.in);
+    private static CampusRegistrar registrar;
+
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
+        // Initialization
+        StudentReg studentService = new StudentRegistration();
+        InstructorReg instructorService = new InstructorRegistration();
+        CourseReg courseService = new CourseRegistration();
+        DepartmentReg departmentService = new DepartmentRegistration();
 
-        // Pag-initialize ng Services
-        CampusRegistrar campusRegistrar = new CampusRegistrar(
-                new StudentRegistration(),
-                new CourseRegistration(),
-                new DepartmentRegistration());
+        registrar = new CampusRegistrar(studentService, courseService, departmentService, instructorService);
 
-        int choice = 0;
+        while (true) {
+            System.out.println("\n--- CAMPUS SYSTEM MENU ---");
+            System.out.println("1. Student Management");
+            System.out.println("2. Instructor Management");
+            System.out.println("3. Exit System");
+            System.out.print("Select choice: ");
 
-        do {
-            System.out.println("\n--- STUDENT MANAGEMENT SYSTEM ---");
-            System.out.println("[1] Save Student");
-            System.out.println("[2] Display All Students");
-            System.out.println("[3] Update Student");
-            System.out.println("[4] Remove Student");
-            System.out.println("[5] Exit"); // Ginawa nating 5 ang Exit
-            System.out.print("Enter Choice: ");
+            String choice = scanner.nextLine();
 
-            // Check muna kung integer ang input para hindi mag-crash
-            if (scanner.hasNextInt()) {
-                choice = scanner.nextInt();
-                scanner.nextLine(); // Buffer clear
+            if (choice.equals("1")) {
+                studentMenu();
+            } else if (choice.equals("2")) {
+                instructorMenu();
+            } else if (choice.equals("3")) {
+                System.out.println("Exiting system...");
+                break;
             } else {
-                System.out.println("Invalid input. Please enter a number.");
-                scanner.nextLine();
-                continue;
+                System.out.println("Invalid option.");
             }
+        }
+    }
 
-            switch (choice) {
-                case 1:
-                    System.out.print("Enter Student ID: ");
-                    String id = scanner.nextLine();
-                    System.out.print("Enter Student Name: ");
-                    String name = scanner.nextLine();
-                    System.out.print("Enter Program: ");
-                    String prog = scanner.nextLine();
+    public static void studentMenu() {
+        while (true) {
+            System.out.println("\n[ STUDENT MANAGEMENT ]");
+            System.out.println("1. Add Student");
+            System.out.println("2. View All Students");
+            System.out.println("3. Update Student");
+            System.out.println("4. Delete Student");
+            System.out.println("5. Back to Main");
+            System.out.print("Choice: ");
+            String action = scanner.nextLine();
 
-                    Student student = new Student(id, name, prog);
-                    campusRegistrar.addStudent(student);
+            if (action.equals("5")) return;
+
+            switch (action) {
+                case "1":
+                    System.out.print("Enter ID: "); String id = scanner.nextLine();
+                    System.out.print("Enter Name: "); String name = scanner.nextLine();
+                    System.out.print("Enter Program: "); String prog = scanner.nextLine();
+                    registrar.addStudent(new Student(id, name, prog));
                     break;
-
-                case 2:
-                    campusRegistrar.getAllStudents();
+                case "2":
+                    registrar.getAllStudents();
                     break;
-
-                case 3:
-                    System.out.print("Enter Student ID to update: ");
-                    String upId = scanner.nextLine();
-                    System.out.print("Enter New Student Name: ");
-                    String upName = scanner.nextLine();
-                    System.out.print("Enter New Program: ");
-                    String upProg = scanner.nextLine();
-
-                    Student updateStudent = new Student(upId, upName, upProg);
-                    campusRegistrar.updateStudent(updateStudent);
+                case "3":
+                    System.out.print("Enter ID to update: "); String uId = scanner.nextLine();
+                    System.out.print("Enter New Name: "); String uName = scanner.nextLine();
+                    System.out.print("Enter New Program: "); String uProg = scanner.nextLine();
+                    registrar.updateStudent(new Student(uId, uName, uProg));
                     break;
-
-                case 4:
-                    System.out.print("Enter Student ID to remove: ");
-                    String remId = scanner.nextLine();
-                    // Gagawa ng temp object para sa ID match
-                    Student studentToRemove = new Student(remId, "", "");
-                    campusRegistrar.removeStudent(studentToRemove);
+                case "4":
+                    System.out.print("Enter ID to delete: "); String dId = scanner.nextLine();
+                    registrar.removeStudent(new Student(dId, "", ""));
                     break;
-
-                case 5:
-                    System.out.println("Exiting System... Goodbye!");
-                    break;
-
                 default:
-                    System.out.println("Invalid choice. Try again.");
+                    System.out.println("Invalid command.");
             }
+        }
+    }
 
-        } while (choice != 5); // Dito ang fix! Hanggang hindi 5 ang choice, tuloy ang loop.
+    public static void instructorMenu() {
+        while (true) {
+            System.out.println("\n[ INSTRUCTOR MANAGEMENT ]");
+            System.out.println("1. Add Instructor");
+            System.out.println("2. View All Instructors");
+            System.out.println("3. Update Instructor");
+            System.out.println("4. Delete Instructor");
+            System.out.println("5. Back to Main");
+            System.out.print("Choice: ");
+            String action = scanner.nextLine();
 
-        scanner.close();
+            if (action.equals("5")) return;
+
+            switch (action) {
+                case "1":
+                    System.out.print("Enter ID: "); String id = scanner.nextLine();
+                    System.out.print("Enter Name: "); String name = scanner.nextLine();
+                    System.out.print("Enter Course: "); String course = scanner.nextLine();
+                    registrar.addInstructor(new Instructor(id, name, course));
+                    break;
+                case "2":
+                    registrar.getAllInstructors();
+                    break;
+                case "3":
+                    System.out.print("Enter ID to update: "); String uId = scanner.nextLine();
+                    System.out.print("Enter New Name: "); String uName = scanner.nextLine();
+                    System.out.print("Enter New Course: "); String uCourse = scanner.nextLine();
+                    registrar.updateInstructor(new Instructor(uId, uName, uCourse));
+                    break;
+                case "4":
+                    System.out.print("Enter ID to delete: "); String dId = scanner.nextLine();
+                    registrar.removeInstructor(new Instructor(dId, "", ""));
+                    break;
+                default:
+                    System.out.println("Invalid command.");
+            }
+        }
     }
 }
