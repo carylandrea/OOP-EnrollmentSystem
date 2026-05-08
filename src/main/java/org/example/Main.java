@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.model.Course;
 import org.example.model.Instructor;
 import org.example.model.Student;
 import org.example.service.*;
@@ -22,20 +23,54 @@ public class Main {
             System.out.println("\n--- CAMPUS SYSTEM MENU ---");
             System.out.println("1. Student Management");
             System.out.println("2. Instructor Management");
-            System.out.println("3. Exit System");
-            System.out.print("Select choice: ");
-
+            System.out.println("3. Course Management");
+            System.out.println("4. Exit");
+            System.out.print("Choice: ");
             String choice = scanner.nextLine();
 
-            if (choice.equals("1")) {
-                studentMenu();
-            } else if (choice.equals("2")) {
-                instructorMenu();
-            } else if (choice.equals("3")) {
-                System.out.println("Exiting system...");
+            if (choice.equals("1")) studentMenu();
+            else if (choice.equals("2")) instructorMenu();
+            else if (choice.equals("3")) courseMenu();
+            else if (choice.equals("4")) {
+                System.out.println("System Closed.");
                 break;
-            } else {
-                System.out.println("Invalid option.");
+            } else System.out.println("Invalid option.");
+        }
+    }
+
+    public static void courseMenu() {
+        while (true) {
+            System.out.println("\n[ COURSE MANAGEMENT ]");
+            System.out.println("1. Add Course");
+            System.out.println("2. View All Courses");
+            System.out.println("3. Update Course");
+            System.out.println("4. Delete Course");
+            System.out.println("5. Back");
+            System.out.print("Choice: ");
+            String action = scanner.nextLine();
+
+            if (action.equals("5")) return;
+
+            switch (action) {
+                case "1":
+                    System.out.print("Enter Code: "); String code = scanner.nextLine();
+                    System.out.print("Enter Description: "); String desc = scanner.nextLine();
+                    registrar.addCourse(new Course(code, desc));
+                    break;
+                case "2":
+                    registrar.getAllCourses();
+                    break;
+                case "3":
+                    System.out.print("Enter Code to update: "); String uCode = scanner.nextLine();
+                    System.out.print("New Description: "); String uDesc = scanner.nextLine();
+                    registrar.updateCourse(new Course(uCode, uDesc));
+                    break;
+                case "4":
+                    System.out.print("Enter Code to delete: "); String rCode = scanner.nextLine();
+                    registrar.removeCourse(new Course(rCode, ""));
+                    break;
+                default:
+                    System.out.println("Invalid choice.");
             }
         }
     }

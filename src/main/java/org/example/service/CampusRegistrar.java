@@ -1,9 +1,9 @@
 package org.example.service;
 
 import org.example.model.Course;
-import org.example.model.Department;
 import org.example.model.Student;
 import org.example.model.Instructor;
+import org.example.model.Department;
 
 public class CampusRegistrar {
     private StudentReg studentService;
@@ -12,13 +12,18 @@ public class CampusRegistrar {
     private InstructorReg instructorService;
 
     public CampusRegistrar(StudentReg studentService, CourseReg courseService,
-                           DepartmentReg departmentService, InstructorReg instructorService){
+                           DepartmentReg departmentService, InstructorReg instructorService) {
         this.studentService = studentService;
         this.courseService = courseService;
         this.departmentService = departmentService;
         this.instructorService = instructorService;
     }
 
+    // Course Proxies - Match these to Main.java
+    public void addCourse(Course c) { courseService.addCourse(c); }
+    public void getAllCourses() { courseService.getAllCourses(); }
+    public void updateCourse(Course c) { courseService.updateCourse(c); }
+    public void removeCourse(Course c) { courseService.removeCourse(c); }
     public void addStudent(Student s){ studentService.addStudent(s); }
     public void getAllStudents(){ studentService.getAllStudents(); }
     public void updateStudent(Student s){ studentService.updateStudent(s); }
