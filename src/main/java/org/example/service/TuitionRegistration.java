@@ -1,20 +1,29 @@
 package org.example.service;
 
-public class TuitionRegistration implements TuitionReg {
-    private double balance = 0;
+public class TuitionRegistration {
+    private final double PRICE_PER_UNIT  = 1000;
+    private double balance;
+    private double totalTuitionFee;
 
-    @Override
-    public double calculateFee(int units) {
-        return units * 1000.0;
+    public double calculateTuitionFee(int units, double discountRate){
+        totalTuitionFee = units * PRICE_PER_UNIT;
+
+        if(discountRate !=0){
+            totalTuitionFee = totalTuitionFee - (totalTuitionFee * discountRate);
+        }
+        return totalTuitionFee;
     }
 
-    @Override
-    public void makePayment(double amount) {
-        this.balance -= amount;
+    public void makePayment(double amount){
+        balance = totalTuitionFee - amount;
+
     }
 
-    @Override
-    public double getRemainingBalance() {
+    public double getBalance(){
         return balance;
+    }
+
+    public boolean isFullyPaid(){
+        return balance == 0 ? true : false;
     }
 }

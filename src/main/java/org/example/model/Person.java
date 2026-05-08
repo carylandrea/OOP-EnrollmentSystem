@@ -12,7 +12,7 @@ public abstract class Person {
         this.personID = personID;
         this.personName = personName;
     }
-    public String getpersonID(){
+    public String getPersonID(){
         return personID;
     }
     public void setpersonID(String personID){
@@ -22,7 +22,7 @@ public abstract class Person {
     public void personID(String personID){
         this.personID = personID;
     }
-    public String getpersonName(){
+    public String getPersonName(){
         return personName;
     }
     public void setpersonName(String personName){
@@ -31,4 +31,5 @@ public abstract class Person {
 
     public abstract void mainTask();
 
+    public abstract String getSpecialization();
 }

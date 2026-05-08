@@ -25,4 +25,15 @@ public class Instructor extends Person {
     public void mainTask() {
         System.out.println("Instructor teaches " + courseName);
     }
+
+    @Override
+    public String getSpecialization() {
+        return "";
+    }
+
+    private String specialization;
+
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
+    }
 }

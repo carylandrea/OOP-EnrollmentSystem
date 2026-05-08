@@ -5,56 +5,45 @@ import org.example.model.Department;
 import org.example.model.Student;
 
 public class CampusRegistrar {
-    private StudentReg StudentRegistration;
-    private CourseReg CourseRegistration;
-    private DepartmentReg DepartmentRegistration;
+    private StudentReg studentService;
+    private CourseReg courseService;
+    private DepartmentReg departmentService;
 
-    public CampusRegistrar(StudentReg StudentRegistration, CourseReg CourseRegistration, DepartmentReg
-            DepartmentRegistration){
-        this.StudentRegistration = StudentRegistration;
-        this.CourseRegistration = CourseRegistration;
-        this.DepartmentRegistration = DepartmentRegistration;
-
+    public CampusRegistrar(StudentReg studentService, CourseReg courseService, DepartmentReg departmentService){
+        this.studentService = studentService;
+        this.courseService = courseService;
+        this.departmentService = departmentService;
     }
 
-    public String saveCourse(Course course){
-        CourseRegistration.saveCourse(course);
-        return "Success";
+    public void addStudent(Student student){
+        studentService.addStudent(student);
     }
 
-    public String saveStudent(Student student){
-        StudentRegistration.saveStudent(student);
-        return "Success";
+    public void getAllStudents(){
+        studentService.getAllStudents();
     }
 
-    public String displayAllCourse(){
-        CourseRegistration.displayAllCourse();
-        return "Success";
+    public void updateStudent(Student student){
+        studentService.updateStudent(student);
     }
 
-    public String displayAllStudent(){
-        StudentRegistration.displayAllStudent();
-        return "Success";
-
+    public void removeStudent(Student student){
+        studentService.removeStudent(student);
     }
 
-    public String updateCourse(Course course){
-        CourseRegistration.updateCourse(course);
-        return "Success";
-    }
-    public String updateStudent(Student student){
-        StudentRegistration.updateStudent(student);
-        return "Success";
+    public void addCourse(Course course){
+        courseService.addCourse(course);
     }
 
-    public String removeCourse(Course course){
-        CourseRegistration.removeCourse(course);
-        return "Success";
+    public void getAllCourses(){
+        courseService.getAllCourses();
     }
 
-    public String removeStudent(Student student){
-        StudentRegistration.removeStudent(student);
-        return "Success";
+    public void updateCourse(Course course){
+        courseService.updateCourse(course);
+    }
 
+    public void removeCourse(Course course){
+        courseService.removeCourse(course);
     }
 }
