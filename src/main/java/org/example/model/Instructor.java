@@ -1,26 +1,28 @@
 package org.example.model;
 
-public class Instructor extends Person{
-    String CourseName;
+public class Instructor extends Person {
+    private String courseName;
 
-    public Instructor(String PersonID, String PersonName, String CourseName){
-        super(PersonID, PersonName);
-        this.CourseName = CourseName;
-    }
-    public String CourseName(){
-        return CourseName;
-
-    }
-    public void CourseName(String CourseName){
-        this.CourseName = CourseName;
+    public Instructor() {
+        super();
 
     }
 
+    public Instructor(String personID, String personName, String courseName) {
+        super(personID, personName);
+        this.courseName = courseName;
+    }
+
+    public String getCourseName() {
+        return courseName;
+    }
+
+    public void setCourseName(String courseName) {
+        this.courseName = courseName;
+    }
 
     @Override
     public void mainTask() {
-        System.out.println("Insturctor teaches");
-
+        System.out.println("Instructor teaches " + courseName);
     }
 }
-
