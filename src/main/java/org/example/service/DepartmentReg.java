@@ -1,10 +1,9 @@
 package org.example.service;
-
+import org.example.model.Student;
+import org.example.model.Section;
 import org.example.model.Department;
 
 public interface DepartmentReg {
-
-    public interface DepartmentRegistration{
-        void saveDepartment(Department department);
-    }
+    void enrollStudentInSection(Student student, Section section);
+    void viewDepartmentHierarchy(Department dept);
 }

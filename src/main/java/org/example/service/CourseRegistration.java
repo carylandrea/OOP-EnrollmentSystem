@@ -1,46 +1,38 @@
 package org.example.service;
-
 import org.example.model.Course;
-
 import java.util.ArrayList;
-
+import java.util.List;
 
 public class CourseRegistration implements CourseReg {
-    private ArrayList<Course> courseList = new ArrayList();
+    private List<Course> courses = new ArrayList<Course>();
 
     @Override
-    public void saveCourse(Course course) {
-        courseList.add(course);
-
-    }
-
-    @Override
-    public void displayAllCourse() {
-        for (Course c : courseList) {
-            System.out.println(c.getCourseID());
-            System.out.println(c.getCourseName());
-            System.out.println(c.getCourseProgram());
-        }
+    public void addCourse(Course course) {
+        courses.add(course);
     }
 
     @Override
     public void updateCourse(Course course) {
-        for (int i = 0; i < courseList.size(); i++) {
-            if (courseList.get(i).getCourseName().equals(course.getCourseName())) {
-                courseList.set(i, course);
+        for (int i = 0; i < courses.size(); i++) {
+            if (courses.get(i).getCourseID().equals(course.getCourseID())) {
+                courses.set(i, course);
                 break;
             }
         }
     }
 
     @Override
-    public void removeCourse(Course course){
-        for(int i = 0; i < courseList.size(); i++) {
-            if (courseList.get(i).getCourseName().equals(course.getCourseName())) {
-                courseList.remove(i);
+    public void removeCourse(String courseId) {
+        for (int i = 0; i < courses.size(); i++) {
+            if (courses.get(i).getCourseID().equals(courseId)) {
+                courses.remove(i);
                 break;
             }
-
         }
+    }
+
+    @Override
+    public List<Course> getAllCourses() {
+        return courses;
     }
 }

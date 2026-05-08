@@ -1,11 +1,10 @@
 package org.example.service;
 import org.example.model.Student;
+import java.util.List;
 
 public interface StudentReg {
-    void saveStudent(Student student);
-    void displayAllStudent();
+    void addStudent(Student student);
     void updateStudent(Student student);
-    void removeStudent(Student student);
-    void mainTask();
-
+    void removeStudent(String studentId);
+    List<Student> getAllStudents();
 }

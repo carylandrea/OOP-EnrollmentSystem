@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-        TuitionFeePayment tuitionFeePayment = new TuitionFeePayment();
+        TuitionRegistration tuitionFeePayment = new TuitionRegistration();
         System.out.println(tuitionFeePayment.calculateTuitionFee(3,0.1));
         tuitionFeePayment.makePayment(2700);
 

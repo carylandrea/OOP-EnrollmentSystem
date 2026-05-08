@@ -1,10 +1,10 @@
 package org.example.service;
 import org.example.model.Course;
+import java.util.List;
 
 public interface CourseReg {
-    void saveCourse(Course course);
-    void displayAllCourse();
+    void addCourse(Course course);
     void updateCourse(Course course);
-    void removeCourse(Course course);
-
+    void removeCourse(String courseId);
+    List<Course> getAllCourses();
 }
