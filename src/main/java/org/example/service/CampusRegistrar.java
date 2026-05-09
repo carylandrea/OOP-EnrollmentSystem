@@ -19,7 +19,6 @@ public class CampusRegistrar {
         this.instructorService = instructorService;
     }
 
-    // Course Proxies - Match these to Main.java
     public void addCourse(Course c) { courseService.addCourse(c); }
     public void getAllCourses() { courseService.getAllCourses(); }
     public void updateCourse(Course c) { courseService.updateCourse(c); }

@@ -1,7 +1,8 @@
 package org.example.service;
+import org.example.model.Student;
 
 public interface TuitionReg {
-    double calculateFee(int units);
-    void makePayment(double amount);
-    double getRemainingBalance();
+    void calculateTuition(Student student, int units, double discountRate);
+    void makePayment(Student student, double amount);
+    double getRemainingBalance(Student student);
 }

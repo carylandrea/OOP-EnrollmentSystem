@@ -1,50 +1,53 @@
 package org.example.service;
 
+import org.example.model.Student;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-class TuitionFeePaymentTest {
-    //Arrange
-    private TuitionRegistration tuitionFeePayment;
+
+class TuitionRegistrationTest {
+    private TuitionRegistration tuitionService;
+    private Student testStudent;
 
     @BeforeEach
-    void setup(){
-        tuitionFeePayment = new TuitionRegistration();
+    void setup() {
+        tuitionService = new TuitionRegistration();
+        testStudent = new Student("S101", "Test Student", "BSIT");
     }
 
     @Test
-    @DisplayName("Calculate Tuition Fee")
-    void shouldCalculateCorrectTuitionFeeWithNoDiscount(){
-        //assert
-        assertEquals(5000, tuitionFeePayment.calculateTuitionFee(5,0));
+    @DisplayName("Calculate Tuition Fee - No Discount")
+    void shouldCalculateCorrectTuitionFeeWithNoDiscount() {
+        tuitionService.calculateTuition(testStudent, 5, 0.0);
+
+        assertEquals(5000.0, testStudent.getTuitionBalance());
     }
 
     @Test
-    void shouldCalculateCorrectTuitionFeeWithDiscount(){
-        assertEquals(4500, tuitionFeePayment.calculateTuitionFee(5,0.10));
+    @DisplayName("Calculate Tuition Fee - 10% Discount")
+    void shouldCalculateCorrectTuitionFeeWithDiscount() {
+        tuitionService.calculateTuition(testStudent, 5, 0.10);
+
+        assertEquals(4500.0, testStudent.getTuitionBalance());
     }
 
     @Test
-    void shouldMakePaymentOf500(){
-        tuitionFeePayment.calculateTuitionFee(5,0);
-        tuitionFeePayment.makePayment(500);
+    @DisplayName("Process Partial Payment")
+    void shouldUpdateBalanceAfterPayment() {
+        tuitionService.calculateTuition(testStudent, 5, 0.0); // 5000 utang
+        tuitionService.makePayment(testStudent, 500.0); // nagbayad 500
 
-        assertEquals(4500, tuitionFeePayment.getBalance());
+        assertEquals(4500.0, testStudent.getTuitionBalance());
     }
 
     @Test
-    void shouldBeFullyPaid(){
-        tuitionFeePayment.calculateTuitionFee(5,0);
-        tuitionFeePayment.makePayment(5000);
-        assertTrue(tuitionFeePayment.isFullyPaid());
-    }
+    @DisplayName("Check if Fully Paid")
+    void shouldBeFullyPaid() {
+        tuitionService.calculateTuition(testStudent, 5, 0.0);
+        tuitionService.makePayment(testStudent, 5000.0);
 
-    @Test
-    void shouldNotBeFullyPaid(){
-        tuitionFeePayment.calculateTuitionFee(5,0);
-        tuitionFeePayment.makePayment(500);
-        assertFalse(tuitionFeePayment.isFullyPaid());
+        assertTrue(testStudent.getTuitionBalance() <= 0);
     }
 }

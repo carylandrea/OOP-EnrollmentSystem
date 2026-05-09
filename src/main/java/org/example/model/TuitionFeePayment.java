@@ -12,7 +12,6 @@ public class TuitionFeePayment {
         this.totalTuitionFee = totalTuitionFee;
     }
 
-    // Getters and Setters
     public double getBalance() {
         return balance;
     }

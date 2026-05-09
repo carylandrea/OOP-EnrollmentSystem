@@ -1,29 +1,27 @@
 package org.example.service;
+import org.example.model.Student;
 
-public class TuitionRegistration {
-    private final double PRICE_PER_UNIT  = 1000;
-    private double balance;
-    private double totalTuitionFee;
+public class TuitionRegistration implements TuitionReg {
+    private final double PRICE_PER_UNIT = 1000.0;
 
-    public double calculateTuitionFee(int units, double discountRate){
-        totalTuitionFee = units * PRICE_PER_UNIT;
-
-        if(discountRate !=0){
-            totalTuitionFee = totalTuitionFee - (totalTuitionFee * discountRate);
-        }
-        return totalTuitionFee;
+    @Override
+    public void calculateTuition(Student student, int units, double discountRate) {
+        double total = units * PRICE_PER_UNIT;
+        double discountedTotal = total - (total * discountRate);
+        student.setTuitionBalance(discountedTotal);
+        System.out.println("Assessment done for " + student.getPersonName());
     }
 
-    public void makePayment(double amount){
-        balance = totalTuitionFee - amount;
-
+    @Override
+    public void makePayment(Student student, double amount) {
+        double currentBalance = student.getTuitionBalance();
+        student.setTuitionBalance(currentBalance - amount);
+        System.out.println("Payment processed: P" + amount);
+        System.out.println("Remaining Balance: P" + student.getTuitionBalance());
     }
 
-    public double getBalance(){
-        return balance;
-    }
-
-    public boolean isFullyPaid(){
-        return balance == 0 ? true : false;
+    @Override
+    public double getRemainingBalance(Student student) {
+        return student.getTuitionBalance();
     }
 }

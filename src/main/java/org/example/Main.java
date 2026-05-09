@@ -67,7 +67,7 @@ public class Main {
                     break;
                 case "4":
                     System.out.print("Enter Code to delete: "); String rCode = scanner.nextLine();
-                    registrar.removeCourse(new Course(rCode, ""));
+                     registrar.removeCourse(new Course(rCode, ""));
                     break;
                 default:
                     System.out.println("Invalid choice.");
