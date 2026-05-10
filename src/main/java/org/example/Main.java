@@ -11,13 +11,13 @@ public class Main {
     private static CampusRegistrar registrar;
 
     public static void main(String[] args) {
-        // Initialization
         StudentReg studentService = new StudentRegistration();
         InstructorReg instructorService = new InstructorRegistration();
         CourseReg courseService = new CourseRegistration();
         DepartmentReg departmentService = new DepartmentRegistration();
+        TuitionReg tuitionService = new TuitionRegistration();
 
-        registrar = new CampusRegistrar(studentService, courseService, departmentService, instructorService);
+        registrar = new CampusRegistrar(studentService, courseService, departmentService, instructorService, tuitionService);
 
         while (true) {
             System.out.println("\n--- CAMPUS SYSTEM MENU ---");
@@ -82,11 +82,14 @@ public class Main {
             System.out.println("2. View All Students");
             System.out.println("3. Update Student");
             System.out.println("4. Delete Student");
-            System.out.println("5. Back to Main");
+            System.out.println("5. Calculate Tuition ");
+            System.out.println("6. Pay Tuition");
+            System.out.println("7. Check Balance");
+            System.out.println("8. Back to Main");
             System.out.print("Choice: ");
             String action = scanner.nextLine();
 
-            if (action.equals("5")) return;
+            if (action.equals("8")) return;
 
             switch (action) {
                 case "1":
@@ -107,6 +110,32 @@ public class Main {
                 case "4":
                     System.out.print("Enter ID to delete: "); String dId = scanner.nextLine();
                     registrar.removeStudent(new Student(dId, "", ""));
+                    break;
+
+                // PHASE 2: TUITION FEE MANAGEMENT
+                case "5":
+                    System.out.print("Enter Student ID to assess: ");
+                    String assessId = scanner.nextLine();
+                    System.out.print("Enter units enrolled: ");
+                    int units = Integer.parseInt(scanner.nextLine());
+                    System.out.print("Enter discount rate: ");
+                    double discount = Double.parseDouble(scanner.nextLine());
+
+                    registrar.calculateAndSetTuition(assessId, units, discount);
+                    break;
+                case "6":
+                    System.out.print("Enter Student ID to pay: ");
+                    String payId = scanner.nextLine();
+                    System.out.print("Enter amount to pay: PHP ");
+                    double amount = Double.parseDouble(scanner.nextLine());
+
+                    registrar.processStudentPayment(payId, amount);
+                    break;
+                case "7":
+                    System.out.print("Enter Student ID to check balance: ");
+                    String checkId = scanner.nextLine();
+
+                    registrar.checkStudentBalance(checkId);
                     break;
                 default:
                     System.out.println("Invalid command.");

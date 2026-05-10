@@ -1,14 +1,19 @@
 package org.example.model;
 
 public class TuitionFeePayment {
-    private double balance;
     private double totalTuitionFee;
+    private double balance;
 
     public TuitionFeePayment() {
+        this.totalTuitionFee = 0.0;
+        this.balance = 0.0;
     }
 
-    public TuitionFeePayment(double balance, double totalTuitionFee) {
-        this.balance = balance;
+    public double getTotalTuitionFee() {
+        return totalTuitionFee;
+    }
+
+    public void setTotalTuitionFee(double totalTuitionFee) {
         this.totalTuitionFee = totalTuitionFee;
     }
 
@@ -18,13 +23,5 @@ public class TuitionFeePayment {
 
     public void setBalance(double balance) {
         this.balance = balance;
-    }
-
-    public double getTotalTuitionFee() {
-        return totalTuitionFee;
-    }
-
-    public void setTotalTuitionFee(double totalTuitionFee) {
-        this.totalTuitionFee = totalTuitionFee;
     }
 }

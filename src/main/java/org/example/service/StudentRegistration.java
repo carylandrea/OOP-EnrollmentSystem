@@ -57,4 +57,14 @@ public class StudentRegistration implements StudentReg {
             System.out.println(">>> [ERROR] Student ID not found. No one was removed.");
         }
     }
+    @Override
+    public Student findStudentByID(String id) {
+        for (Student s : studentList) {
+            String currentID = s.getPersonID();
+            if (currentID != null && currentID.equalsIgnoreCase(id)) {
+                return s;
+            }
+        }
+        return null;
+    }
 }

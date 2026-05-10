@@ -6,4 +6,5 @@ public interface StudentReg {
     void getAllStudents();
     void updateStudent(Student student);
     void removeStudent(Student student);
+    Student findStudentByID(String id);
 }

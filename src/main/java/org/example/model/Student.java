@@ -2,29 +2,34 @@ package org.example.model;
 
 public class Student extends Person {
     private String studentProgram;
-    private double tuitionBalance;
+    private TuitionFeePayment tuitionDetails;
 
     public Student(String PersonID, String PersonName, String studentProgram) {
         super(PersonID, PersonName);
         this.studentProgram = studentProgram;
-        this.tuitionBalance = 0.0;
+
+        this.tuitionDetails = new TuitionFeePayment();
     }
 
     public String getStudentProgram() { return studentProgram; }
     public void setStudentProgram(String studentProgram) { this.studentProgram = studentProgram; }
 
-    public double getTuitionBalance() { return tuitionBalance; }
-    public void setTuitionBalance(double tuitionBalance) { this.tuitionBalance = tuitionBalance; }
+    public TuitionFeePayment getTuitionDetails() {
+        return tuitionDetails;
+    }
 
     public void display() {
         System.out.println("Student ID: " + getPersonID());
         System.out.println("Student Name: " + getPersonName());
         System.out.println("Program: " + getStudentProgram());
-        System.out.println("Balance: P" + getTuitionBalance() + "\n");
+
+        System.out.println("Balance: P" + tuitionDetails.getBalance() + "\n");
+
+        mainTask();
+        System.out.println();
     }
 
     @Override
     public void mainTask() {
-        System.out.println("Student " + getPersonName() + " is studying.");
     }
 }
