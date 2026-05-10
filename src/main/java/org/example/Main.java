@@ -289,11 +289,12 @@ public class Main {
             System.out.println("2. View Institutional Hierarchy");
             System.out.println("3. Add Section to Department");
             System.out.println("4. Enroll Student to Section");
-            System.out.println("5. Back to Main");
+            System.out.println("5. Assign Instructor to Section");
+            System.out.println("6. Back to Main");
             System.out.print("Choice: ");
             String action = scanner.nextLine();
 
-            if (action.equals("5")) return;
+            if (action.equals("6")) return;
 
             switch (action) {
                 case "1":
@@ -370,6 +371,17 @@ public class Main {
 
                     registrar.enrollStudentToSection(enrollId, enrollDept, enrollSec);
                     break;
+                case "5":
+                    System.out.print("Enter Instructor ID to assign: ");
+                    String instId = scanner.nextLine();
+                    System.out.print("Enter Department Name: ");
+                    String instDept = scanner.nextLine();
+                    System.out.print("Enter Section Name: ");
+                    String instSec = scanner.nextLine();
+
+                    registrar.assignInstructorToSection(instId, instDept, instSec);
+                    break;
+
                 default:
                     System.out.println("Invalid choice.");
             }

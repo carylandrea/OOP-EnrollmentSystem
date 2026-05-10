@@ -1,5 +1,6 @@
 package org.example.service;
 
+import org.example.model.Instructor;
 import org.example.model.Student;
 import org.example.model.Section;
 import org.example.model.Department;
@@ -41,5 +42,14 @@ public class DepartmentRegistration implements DepartmentReg {
             }
         }
         return null;
+    }
+    @Override
+    public void assignInstructorToSection(Instructor instructor, Section section) {
+        if (section.getAssignedInstructor() != null) {
+            System.out.println(">>> [ERROR] Section " + section.getSectionName() + " already has a teacher!");
+            return;
+        }
+        section.setAssignedInstructor(instructor);
+        System.out.println(">>> [SUCCESS] Instructor " + instructor.getPersonName() + " assigned!");
     }
 }

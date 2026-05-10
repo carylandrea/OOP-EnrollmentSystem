@@ -140,4 +140,42 @@ public class CampusRegistrar {
         }
         departmentService.enrollStudentInSection(student, targetSection);
     }
+    public void assignInstructorToSection(String instructorId, String deptName, String sectionName) {
+        Instructor instructor = null;
+
+        for (Instructor i : instructorService.getAllInstructors()) {
+            if (i.getPersonID().equals(instructorId)) {
+                instructor = i;
+                break;
+            }
+        }
+
+        if (instructor == null) {
+            System.out.println(">>> [ERROR] Instructor ID '" + instructorId + "' not found!");
+            return;
+        }
+
+        Department dept = departmentService.findDepartmentByName(deptName);
+        if (dept == null) {
+            System.out.println(">>> [ERROR] Department '" + deptName + "' not found!");
+            return;
+        }
+
+        Section targetSection = null;
+        if (dept.getSectionLists() != null) {
+            for (Section sec : dept.getSectionLists()) {
+                if (sec.getSectionName().equalsIgnoreCase(sectionName)) {
+                    targetSection = sec;
+                    break;
+                }
+            }
+        }
+        if (targetSection == null) {
+            System.out.println(">>> [ERROR] Section '" + sectionName + "' not found in " + deptName + "!");
+            return;
+        }
+
+        targetSection.setAssignedInstructor(instructor);
+        System.out.println(">>> [SUCCESS] Instructor " + instructor.getPersonName() + " assigned to teach " + targetSection.getSectionName() + "!");
+    }
 }

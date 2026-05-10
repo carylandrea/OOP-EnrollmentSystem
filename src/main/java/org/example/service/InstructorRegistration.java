@@ -2,6 +2,7 @@ package org.example.service;
 
 import org.example.model.Instructor;
 import java.util.ArrayList;
+import java.util.List;
 
 public class InstructorRegistration implements InstructorReg {
     private ArrayList<Instructor> instructorList = new ArrayList<>();
@@ -45,5 +46,10 @@ public class InstructorRegistration implements InstructorReg {
             }
         }
         System.out.println(">>> [ERROR] Instructor not found.");
+    }
+
+    @Override
+    public List<Instructor> getAllInstructors() {
+        return this.instructorList;
     }
 }
