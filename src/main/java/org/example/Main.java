@@ -95,11 +95,17 @@ public class Main {
                 case "1":
                     System.out.print("Enter ID: ");
                     String id = scanner.nextLine();
+                    if (registrar.getStudent(id) != null) {
+                        System.out.println(">>> [ERROR] Student ID '" + id + "' already exists!");
+                        break;
+                    }
+
                     System.out.print("Enter Name: ");
                     String name = scanner.nextLine();
                     System.out.print("Enter Program: ");
                     String prog = scanner.nextLine();
                     registrar.addStudent(new Student(id, name, prog));
+
                     break;
                 case "2":
                     registrar.getAllStudents();
@@ -141,7 +147,6 @@ public class Main {
                         }
                     }
 
-                    // [!] BULLETPROOF UNITS INPUT
                     int units = 0;
                     while (true) {
                         System.out.print("Enter units enrolled: ");
@@ -154,7 +159,6 @@ public class Main {
                         }
                     }
 
-                    // [!] BULLETPROOF DISCOUNT INPUT
                     double discount = 0;
                     while (true) {
                         System.out.print("Enter discount rate (e.g. 0.10 for 10%, 0 or 'none' for no discount): ");
@@ -162,7 +166,7 @@ public class Main {
 
                         if (discInput.equalsIgnoreCase("none")) {
                             discount = 0;
-                            break; // Success! Treat "none" as 0
+                            break;
                         }
 
                         try {
@@ -198,7 +202,6 @@ public class Main {
                         break;
                     }
 
-                    // [!] BULLETPROOF PAYMENT INPUT
                     double amount = 0;
                     while (true) {
                         System.out.print("Enter amount to pay (Current Balance: PHP " + currentBalance + "): PHP ");
@@ -210,7 +213,7 @@ public class Main {
                             } else if (amount <= 0) {
                                 System.out.println(">>> [WARNING] Invalid amount. Please enter a value greater than 0.");
                             } else {
-                                break; // Swak ang binayad, exit loop!
+                                break;
                             }
                         } catch (NumberFormatException e) {
                             System.out.println(">>> [ERROR] Invalid input! Please enter numbers only.");
@@ -224,14 +227,12 @@ public class Main {
                     System.out.print("Enter Student ID to check balance: ");
                     String checkId = scanner.nextLine();
 
-                    // VALIDATION 1: Check kung may student
                     Student studentToCheck = registrar.getStudent(checkId);
                     if (studentToCheck == null) {
                         System.out.println(">>> [ERROR] Student ID not found!");
                         break;
                     }
 
-                    // VALIDATION 5: Hindi makikita ang status kung di pa assessed
                     if (studentToCheck.getTuitionDetails() == null || studentToCheck.getTuitionDetails().getTotalTuitionFee() == 0) {
                         System.out.println(">>> [ERROR] Tuition not assessed yet! Please assess tuition first (Option 5).");
                         break;
@@ -296,8 +297,12 @@ public class Main {
 
             switch (action) {
                 case "1":
-                    System.out.print("Enter Department Name (e.g., College of Computer Studies): ");
+                    System.out.print("Enter Department Name: ");
                     String deptName = scanner.nextLine();
+                    if (registrar.getDepartment(deptName) != null) {
+                        System.out.println(">>> [ERROR] Department '" + deptName + "' already exists!");
+                        break;
+                    }
                     registrar.addDepartment(new Department(deptName));
                     break;
                 case "2":
@@ -312,6 +317,7 @@ public class Main {
                         System.out.println(">>> [ERROR] Department '" + viewDept + "' not found.");
                     }
                     break;
+
                 case "3":
                     System.out.print("Enter Department Name where you want to add the section: ");
                     String targetDeptName = scanner.nextLine();
@@ -320,6 +326,21 @@ public class Main {
                     if (targetDept != null) {
                         System.out.print("Enter Section Name (e.g., BSIT-1A): ");
                         String secName = scanner.nextLine();
+                        boolean isDuplicate = false;
+
+                        if (targetDept.getSectionLists() != null) {
+                            for (Section sec : targetDept.getSectionLists()) {
+                                if (sec.getSectionName().equalsIgnoreCase(secName)) {
+                                    isDuplicate = true;
+                                    break;
+                                }
+                            }
+                        }
+
+                        if (isDuplicate) {
+                            System.out.println(">>> [ERROR] Section '" + secName + "' already exists in " + targetDept.getDepartmentName() + "!");
+                            break;
+                        }
 
                         int capacity = 0;
                         while (true) {
@@ -355,4 +376,3 @@ public class Main {
         }
     }
 }
-

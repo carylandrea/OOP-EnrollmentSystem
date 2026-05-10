@@ -20,12 +20,16 @@ public class DepartmentRegistration implements DepartmentReg {
         if (section.getEnrolledStudents() == null) {
             section.setEnrolledStudents(new ArrayList<>());
         }
+        if (section.getEnrolledStudents().contains(student)) {
+            System.out.println(">>> [ERROR] Student " + student.getPersonName() + " is ALREADY enrolled in " + section.getSectionName() + "!");
+            return;
+        }
+
         if (section.getEnrolledStudents().size() < section.getMaxCapacity()) {
             section.getEnrolledStudents().add(student);
-
             System.out.println(">>> [SUCCESS] Student " + student.getPersonName() + " has been successfully enrolled in " + section.getSectionName() + "!");
         } else {
-            System.out.println(">>> [ERROR] Cannot enroll. Section " + section.getSectionName() + " is already full!");
+            System.out.println(">>> [ERROR] Cannot enroll. Section " + section.getSectionName() + " is already FULL!");
         }
     }
 
