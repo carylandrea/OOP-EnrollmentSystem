@@ -107,5 +107,12 @@ public class CampusRegistrar {
     public Student getStudent(String studentId) {
         return studentService.findStudentByID(studentId);
     }
+    public void addDepartment(Department d) {
+        departmentService.addDepartment(d);
+    }
+
+    public Department getDepartment(String deptName) {
+        return departmentService.findDepartmentByName(deptName);
+    }
 
 }

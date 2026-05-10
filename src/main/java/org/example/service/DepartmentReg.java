@@ -5,5 +5,6 @@ import org.example.model.Department;
 
 public interface DepartmentReg {
     void enrollStudentInSection(Student student, Section section);
-    void viewDepartmentHierarchy(Department dept);
+    void addDepartment(Department dept);
+    Department findDepartmentByName(String name);
 }

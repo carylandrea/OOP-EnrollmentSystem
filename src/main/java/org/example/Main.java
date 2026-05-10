@@ -1,6 +1,7 @@
 package org.example;
 
 import org.example.model.Course;
+import org.example.model.Department;
 import org.example.model.Instructor;
 import org.example.model.Student;
 import org.example.service.*;
@@ -24,14 +25,16 @@ public class Main {
             System.out.println("1. Student Management");
             System.out.println("2. Instructor Management");
             System.out.println("3. Course Management");
-            System.out.println("4. Exit");
+            System.out.println("4. Department Management");
+            System.out.println("5. Exit");
             System.out.print("Choice: ");
             String choice = scanner.nextLine();
 
             if (choice.equals("1")) studentMenu();
             else if (choice.equals("2")) instructorMenu();
             else if (choice.equals("3")) courseMenu();
-            else if (choice.equals("4")) {
+            else if (choice.equals("4")) departmentMenu(); // [!] NEW
+            else if (choice.equals("5")) {
                 System.out.println("System Closed.");
                 break;
             } else System.out.println("Invalid option.");
@@ -278,6 +281,41 @@ public class Main {
                     break;
                 default:
                     System.out.println("Invalid command.");
+            }
+        }
+    }
+    public static void departmentMenu() {
+        while (true) {
+            System.out.println("\n[ DEPARTMENT MANAGEMENT ]");
+            System.out.println("1. Add Department");
+            System.out.println("2. View Institutional Hierarchy");
+            System.out.println("3. Back to Main");
+            System.out.print("Choice: ");
+            String action = scanner.nextLine();
+
+            if (action.equals("3")) return;
+
+            switch (action) {
+                case "1":
+                    System.out.print("Enter Department Name (e.g., College of Computer Studies): ");
+                    String deptName = scanner.nextLine();
+                    registrar.addDepartment(new Department(deptName));
+                    break;
+                case "2":
+                    System.out.println("\n--- VIEW INSTITUTIONAL HIERARCHY ---");
+                    System.out.print("Enter Department Name to view: ");
+                    String viewDept = scanner.nextLine();
+
+                    Department deptToView = registrar.getDepartment(viewDept);
+
+                    if (deptToView != null) {
+                        registrar.displayHierarchy(deptToView);
+                    } else {
+                        System.out.println(">>> [ERROR] Department '" + viewDept + "' not found.");
+                    }
+                    break;
+                default:
+                    System.out.println("Invalid choice.");
             }
         }
     }

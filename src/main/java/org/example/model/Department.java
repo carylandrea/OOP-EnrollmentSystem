@@ -17,6 +17,11 @@ public class Department {
         this.sectionLists = new ArrayList<>();
     }
 
+    public Department(String departmentName) {
+        this.departmentName = departmentName;
+        this.sectionLists = new ArrayList<>();
+    }
+
     public String getDepartmentID() { return departmentID; }
     public void setDepartmentID(String departmentID) { this.departmentID = departmentID; }
 
