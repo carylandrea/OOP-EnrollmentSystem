@@ -103,4 +103,9 @@ public class CampusRegistrar {
             }
         }
     }
+
+    public Student getStudent(String studentId) {
+        return studentService.findStudentByID(studentId);
+    }
+
 }

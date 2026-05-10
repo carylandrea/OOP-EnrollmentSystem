@@ -93,22 +93,29 @@ public class Main {
 
             switch (action) {
                 case "1":
-                    System.out.print("Enter ID: "); String id = scanner.nextLine();
-                    System.out.print("Enter Name: "); String name = scanner.nextLine();
-                    System.out.print("Enter Program: "); String prog = scanner.nextLine();
+                    System.out.print("Enter ID: ");
+                    String id = scanner.nextLine();
+                    System.out.print("Enter Name: ");
+                    String name = scanner.nextLine();
+                    System.out.print("Enter Program: ");
+                    String prog = scanner.nextLine();
                     registrar.addStudent(new Student(id, name, prog));
                     break;
                 case "2":
                     registrar.getAllStudents();
                     break;
                 case "3":
-                    System.out.print("Enter ID to update: "); String uId = scanner.nextLine();
-                    System.out.print("Enter New Name: "); String uName = scanner.nextLine();
-                    System.out.print("Enter New Program: "); String uProg = scanner.nextLine();
+                    System.out.print("Enter ID to update: ");
+                    String uId = scanner.nextLine();
+                    System.out.print("Enter New Name: ");
+                    String uName = scanner.nextLine();
+                    System.out.print("Enter New Program: ");
+                    String uProg = scanner.nextLine();
                     registrar.updateStudent(new Student(uId, uName, uProg));
                     break;
                 case "4":
-                    System.out.print("Enter ID to delete: "); String dId = scanner.nextLine();
+                    System.out.print("Enter ID to delete: ");
+                    String dId = scanner.nextLine();
                     registrar.removeStudent(new Student(dId, "", ""));
                     break;
 
@@ -116,29 +123,122 @@ public class Main {
                 case "5":
                     System.out.print("Enter Student ID to assess: ");
                     String assessId = scanner.nextLine();
-                    System.out.print("Enter units enrolled: ");
-                    int units = Integer.parseInt(scanner.nextLine());
-                    System.out.print("Enter discount rate: ");
-                    double discount = Double.parseDouble(scanner.nextLine());
+
+                    Student studentToAssess = registrar.getStudent(assessId);
+                    if (studentToAssess == null) {
+                        System.out.println(">>> [ERROR] Student ID not found!");
+                        break;
+                    }
+
+                    if (studentToAssess.getTuitionDetails() != null && studentToAssess.getTuitionDetails().getTotalTuitionFee() > 0) {
+                        System.out.println(">>> [INFO] This student has already been assessed.");
+                        System.out.println(">>> Current Total Tuition: PHP " + studentToAssess.getTuitionDetails().getTotalTuitionFee());
+                        System.out.print("Do you want to re-assess and OVERWRITE? (Y/N): ");
+                        String editChoice = scanner.nextLine();
+                        if (!editChoice.equalsIgnoreCase("Y")) {
+                            System.out.println(">>> Assessment cancelled.");
+                            break;
+                        }
+                    }
+
+                    // [!] BULLETPROOF UNITS INPUT
+                    int units = 0;
+                    while (true) {
+                        System.out.print("Enter units enrolled: ");
+                        try {
+                            units = Integer.parseInt(scanner.nextLine());
+                            if (units > 0) break; // Success!
+                            System.out.println(">>> [WARNING] Units must be greater than 0.");
+                        } catch (NumberFormatException e) {
+                            System.out.println(">>> [ERROR] Invalid input! Please enter numbers only.");
+                        }
+                    }
+
+                    // [!] BULLETPROOF DISCOUNT INPUT
+                    double discount = 0;
+                    while (true) {
+                        System.out.print("Enter discount rate (e.g. 0.10 for 10%, 0 or 'none' for no discount): ");
+                        String discInput = scanner.nextLine();
+
+                        if (discInput.equalsIgnoreCase("none")) {
+                            discount = 0;
+                            break; // Success! Treat "none" as 0
+                        }
+
+                        try {
+                            discount = Double.parseDouble(discInput);
+                            if (discount >= 0 && discount <= 1) break; // Success!
+                            System.out.println(">>> [WARNING] Discount must be between 0 and 1 (e.g., 0.15).");
+                        } catch (NumberFormatException e) {
+                            System.out.println(">>> [ERROR] Invalid input! Please enter a valid decimal number or 'none'.");
+                        }
+                    }
 
                     registrar.calculateAndSetTuition(assessId, units, discount);
                     break;
+
                 case "6":
                     System.out.print("Enter Student ID to pay: ");
                     String payId = scanner.nextLine();
-                    System.out.print("Enter amount to pay: PHP ");
-                    double amount = Double.parseDouble(scanner.nextLine());
+
+                    Student studentToPay = registrar.getStudent(payId);
+                    if (studentToPay == null) {
+                        System.out.println(">>> [ERROR] Student ID not found!");
+                        break;
+                    }
+
+                    if (studentToPay.getTuitionDetails() == null || studentToPay.getTuitionDetails().getTotalTuitionFee() == 0) {
+                        System.out.println(">>> [ERROR] Tuition not assessed yet! Please assess tuition first (Option 5).");
+                        break;
+                    }
+
+                    double currentBalance = studentToPay.getTuitionDetails().getBalance();
+                    if (currentBalance <= 0) {
+                        System.out.println(">>> [INFO] Student is already FULLY PAID. No payment needed.");
+                        break;
+                    }
+
+                    // [!] BULLETPROOF PAYMENT INPUT
+                    double amount = 0;
+                    while (true) {
+                        System.out.print("Enter amount to pay (Current Balance: PHP " + currentBalance + "): PHP ");
+                        try {
+                            amount = Double.parseDouble(scanner.nextLine());
+
+                            if (amount > currentBalance) {
+                                System.out.println(">>> [WARNING] Too much! You only need to pay PHP " + currentBalance);
+                            } else if (amount <= 0) {
+                                System.out.println(">>> [WARNING] Invalid amount. Please enter a value greater than 0.");
+                            } else {
+                                break; // Swak ang binayad, exit loop!
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println(">>> [ERROR] Invalid input! Please enter numbers only.");
+                        }
+                    }
 
                     registrar.processStudentPayment(payId, amount);
                     break;
+
                 case "7":
                     System.out.print("Enter Student ID to check balance: ");
                     String checkId = scanner.nextLine();
 
+                    // VALIDATION 1: Check kung may student
+                    Student studentToCheck = registrar.getStudent(checkId);
+                    if (studentToCheck == null) {
+                        System.out.println(">>> [ERROR] Student ID not found!");
+                        break;
+                    }
+
+                    // VALIDATION 5: Hindi makikita ang status kung di pa assessed
+                    if (studentToCheck.getTuitionDetails() == null || studentToCheck.getTuitionDetails().getTotalTuitionFee() == 0) {
+                        System.out.println(">>> [ERROR] Tuition not assessed yet! Please assess tuition first (Option 5).");
+                        break;
+                    }
+
                     registrar.checkStudentBalance(checkId);
                     break;
-                default:
-                    System.out.println("Invalid command.");
             }
         }
     }
