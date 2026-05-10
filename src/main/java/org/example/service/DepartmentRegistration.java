@@ -17,11 +17,15 @@ public class DepartmentRegistration implements DepartmentReg {
 
     @Override
     public void enrollStudentInSection(Student student, Section section) {
+        if (section.getEnrolledStudents() == null) {
+            section.setEnrolledStudents(new ArrayList<>());
+        }
         if (section.getEnrolledStudents().size() < section.getMaxCapacity()) {
             section.getEnrolledStudents().add(student);
-            System.out.println(">>> [SUCCESS] Student " + student.getPersonName() + " enrolled in " + section.getSectionName() + "!");
+
+            System.out.println(">>> [SUCCESS] Student " + student.getPersonName() + " has been successfully enrolled in " + section.getSectionName() + "!");
         } else {
-            System.out.println(">>> [ERROR] Full Students! Cannot enroll in " + section.getSectionName() + ".");
+            System.out.println(">>> [ERROR] Cannot enroll. Section " + section.getSectionName() + " is already full!");
         }
     }
 

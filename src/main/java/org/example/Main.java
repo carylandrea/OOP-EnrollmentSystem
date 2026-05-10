@@ -287,11 +287,12 @@ public class Main {
             System.out.println("1. Add Department");
             System.out.println("2. View Institutional Hierarchy");
             System.out.println("3. Add Section to Department");
-            System.out.println("4. Back to Main");
+            System.out.println("4. Enroll Student to Section");
+            System.out.println("5. Back to Main");
             System.out.print("Choice: ");
             String action = scanner.nextLine();
 
-            if (action.equals("4")) return;
+            if (action.equals("5")) return;
 
             switch (action) {
                 case "1":
@@ -337,6 +338,16 @@ public class Main {
                     } else {
                         System.out.println(">>> [ERROR] Department '" + targetDeptName + "' not found! Please add it first (Option 1).");
                     }
+                    break;
+                case "4":
+                    System.out.print("Enter Student ID to enroll: ");
+                    String enrollId = scanner.nextLine();
+                    System.out.print("Enter Department Name: ");
+                    String enrollDept = scanner.nextLine();
+                    System.out.print("Enter Section Name: ");
+                    String enrollSec = scanner.nextLine();
+
+                    registrar.enrollStudentToSection(enrollId, enrollDept, enrollSec);
                     break;
                 default:
                     System.out.println("Invalid choice.");

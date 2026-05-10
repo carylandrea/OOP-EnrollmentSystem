@@ -114,5 +114,30 @@ public class CampusRegistrar {
     public Department getDepartment(String deptName) {
         return departmentService.findDepartmentByName(deptName);
     }
-
+    public void enrollStudentToSection(String enrollId, String enrollDept, String enrollSec) {
+        Student student = studentService.findStudentByID(enrollId);
+        if (student == null) {
+            System.out.println(">>> [ERROR] Student ID '" + enrollId + "' not found! Add student muna.");
+            return;
+        }
+        Department dept = departmentService.findDepartmentByName(enrollDept);
+        if (dept == null) {
+            System.out.println(">>> [ERROR] Department '" + enrollDept + "' not found!");
+            return;
+        }
+        Section targetSection = null;
+        if (dept.getSectionLists() != null) {
+            for (Section sec : dept.getSectionLists()) {
+                if (sec.getSectionName().equalsIgnoreCase(enrollSec)) {
+                    targetSection = sec;
+                    break;
+                }
+            }
+        }
+        if (targetSection == null) {
+            System.out.println(">>> [ERROR] Section '" + enrollSec + "' not found in " + enrollDept + "!");
+            return;
+        }
+        departmentService.enrollStudentInSection(student, targetSection);
+    }
 }
