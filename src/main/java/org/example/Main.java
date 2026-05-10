@@ -1,9 +1,6 @@
 package org.example;
 
-import org.example.model.Course;
-import org.example.model.Department;
-import org.example.model.Instructor;
-import org.example.model.Student;
+import org.example.model.*;
 import org.example.service.*;
 import java.util.Scanner;
 
@@ -289,11 +286,12 @@ public class Main {
             System.out.println("\n[ DEPARTMENT MANAGEMENT ]");
             System.out.println("1. Add Department");
             System.out.println("2. View Institutional Hierarchy");
-            System.out.println("3. Back to Main");
+            System.out.println("3. Add Section to Department");
+            System.out.println("4. Back to Main");
             System.out.print("Choice: ");
             String action = scanner.nextLine();
 
-            if (action.equals("3")) return;
+            if (action.equals("4")) return;
 
             switch (action) {
                 case "1":
@@ -305,7 +303,6 @@ public class Main {
                     System.out.println("\n--- VIEW INSTITUTIONAL HIERARCHY ---");
                     System.out.print("Enter Department Name to view: ");
                     String viewDept = scanner.nextLine();
-
                     Department deptToView = registrar.getDepartment(viewDept);
 
                     if (deptToView != null) {
@@ -314,9 +311,37 @@ public class Main {
                         System.out.println(">>> [ERROR] Department '" + viewDept + "' not found.");
                     }
                     break;
+                case "3":
+                    System.out.print("Enter Department Name where you want to add the section: ");
+                    String targetDeptName = scanner.nextLine();
+                    Department targetDept = registrar.getDepartment(targetDeptName);
+
+                    if (targetDept != null) {
+                        System.out.print("Enter Section Name (e.g., BSIT-1A): ");
+                        String secName = scanner.nextLine();
+
+                        int capacity = 0;
+                        while (true) {
+                            System.out.print("Enter Max Capacity (e.g., 40): ");
+                            try {
+                                capacity = Integer.parseInt(scanner.nextLine());
+                                if (capacity > 0) break;
+                                System.out.println(">>> [WARNING] Capacity must be greater than 0.");
+                            } catch (NumberFormatException e) {
+                                System.out.println(">>> [ERROR] Please enter a valid number.");
+                            }
+                        }
+
+                        Section newSection = new Section(secName, capacity);
+                        targetDept.addSection(newSection);
+                    } else {
+                        System.out.println(">>> [ERROR] Department '" + targetDeptName + "' not found! Please add it first (Option 1).");
+                    }
+                    break;
                 default:
                     System.out.println("Invalid choice.");
             }
         }
     }
 }
+

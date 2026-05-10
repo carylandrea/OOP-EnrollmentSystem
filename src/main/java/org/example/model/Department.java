@@ -33,4 +33,12 @@ public class Department {
 
     public List<Section> getSectionLists() { return sectionLists; }
     public void setSectionLists(List<Section> sectionLists) { this.sectionLists = sectionLists; }
+
+    public void addSection(Section section) {
+        if (this.sectionLists == null) {
+            this.sectionLists = new ArrayList<>();
+        }
+        this.sectionLists.add(section);
+        System.out.println(">>> [SUCCESS] Section '" + section.getSectionName() + "' added to " + this.departmentName);
+    }
 }
