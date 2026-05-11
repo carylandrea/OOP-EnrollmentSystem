@@ -55,7 +55,11 @@ public class Main {
                 case "1":
                     System.out.print("Enter Code: "); String code = scanner.nextLine();
                     System.out.print("Enter Description: "); String desc = scanner.nextLine();
-                    registrar.addCourse(new Course(code, desc));
+                    System.out.print("Enter Price: ");
+                    double price = scanner.nextDouble();
+                    scanner.nextLine();
+
+                    registrar.addCourse(new Course(code, desc, price));
                     break;
                 case "2":
                     registrar.getAllCourses();
@@ -63,11 +67,16 @@ public class Main {
                 case "3":
                     System.out.print("Enter Code to update: "); String uCode = scanner.nextLine();
                     System.out.print("New Description: "); String uDesc = scanner.nextLine();
-                    registrar.updateCourse(new Course(uCode, uDesc));
+
+                    System.out.print("New Price: ");
+                    double uPrice = scanner.nextDouble();
+                    scanner.nextLine();
+
+                    registrar.updateCourse(new Course(uCode, uDesc, uPrice));
                     break;
                 case "4":
                     System.out.print("Enter Code to delete: "); String rCode = scanner.nextLine();
-                     registrar.removeCourse(new Course(rCode, ""));
+                    registrar.removeCourse(new Course(rCode, "", 0.0));
                     break;
                 default:
                     System.out.println("Invalid choice.");

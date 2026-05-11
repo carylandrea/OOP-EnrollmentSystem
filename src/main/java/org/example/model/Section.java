@@ -7,6 +7,7 @@ public class Section {
     private int maxCapacity;
     private Instructor assignedInstructor;
     private List<Student> enrolledStudents;
+    private Course assignedCourse;
 
     public Section() {
         this.enrolledStudents = new ArrayList<>();
@@ -18,21 +19,37 @@ public class Section {
         this.enrolledStudents = new ArrayList<>();
     }
 
+
+    public Course getAssignedCourse() {
+        return assignedCourse;
+    }
+
+    public void setAssignedCourse(Course assignedCourse) {
+        this.assignedCourse = assignedCourse;
+    }
+
     public String getSectionName() {
         return sectionName;
-    }public void setSectionName(String sectionName) {
+    }
+    public void setSectionName(String sectionName) {
         this.sectionName = sectionName;
-    }public int getMaxCapacity() {
+    }
+    public int getMaxCapacity() {
         return maxCapacity;
-    }public void setMaxCapacity(int maxCapacity) {
+    }
+    public void setMaxCapacity(int maxCapacity) {
         this.maxCapacity = maxCapacity;
-    }public Instructor getAssignedInstructor() {
+    }
+    public Instructor getAssignedInstructor() {
         return assignedInstructor;
-    }public void setAssignedInstructor(Instructor assignedInstructor) {
+    }
+    public void setAssignedInstructor(Instructor assignedInstructor) {
         this.assignedInstructor = assignedInstructor;
-    }public List<Student> getEnrolledStudents() {
+    }
+    public List<Student> getEnrolledStudents() {
         return enrolledStudents;
-    }public void setEnrolledStudents(List<Student> enrolledStudents) {
+    }
+    public void setEnrolledStudents(List<Student> enrolledStudents) {
         this.enrolledStudents = enrolledStudents;
     }
 }
