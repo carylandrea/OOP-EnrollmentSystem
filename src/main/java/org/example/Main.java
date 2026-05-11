@@ -138,58 +138,50 @@ public class Main {
                 case "5":
                     System.out.print("Enter Student ID to assess: ");
                     String assessId = scanner.nextLine();
-
                     Student studentToAssess = registrar.getStudent(assessId);
+
                     if (studentToAssess == null) {
                         System.out.println(">>> [ERROR] Student ID not found!");
                         break;
                     }
 
-                    if (studentToAssess.getTuitionDetails() != null && studentToAssess.getTuitionDetails().getTotalTuitionFee() > 0) {
-                        System.out.println(">>> [INFO] This student has already been assessed.");
-                        System.out.println(">>> Current Total Tuition: PHP " + studentToAssess.getTuitionDetails().getTotalTuitionFee());
-                        System.out.print("Do you want to re-assess and OVERWRITE? (Y/N): ");
-                        String editChoice = scanner.nextLine();
-                        if (!editChoice.equalsIgnoreCase("Y")) {
-                            System.out.println(">>> Assessment cancelled.");
-                            break;
+                    Section selectedSection = null;
+
+                    System.out.print("Enter Department Name: ");
+                    String dName = scanner.nextLine();
+                    Department dept = registrar.getDepartment(dName);
+
+                    if (dept != null) {
+                        System.out.print("Enter Section Name (e.g., BSIT-1A): ");
+                        String sectName = scanner.nextLine();
+
+                        if (dept.getSectionLists() != null) {
+                            for (Section sec : dept.getSectionLists()) {
+                                if (sec.getSectionName().equalsIgnoreCase(sectName)) {
+                                    selectedSection = sec;
+                                    break;
+                                }
+                            }
                         }
+                    } else {
+                        System.out.println(">>> [ERROR] Department not found!");
+                        break;
                     }
 
-                    int units = 0;
-                    while (true) {
-                        System.out.print("Enter units enrolled: ");
-                        try {
-                            units = Integer.parseInt(scanner.nextLine());
-                            if (units > 0) break; // Success!
-                            System.out.println(">>> [WARNING] Units must be greater than 0.");
-                        } catch (NumberFormatException e) {
-                            System.out.println(">>> [ERROR] Invalid input! Please enter numbers only.");
-                        }
+                    if (selectedSection == null) {
+                        System.out.println(">>> [ERROR] Section not found in this department!");
+                        break;
                     }
 
+                    System.out.print("Enter discount rate (e.g. 0.10): ");
                     double discount = 0;
-                    while (true) {
-                        System.out.print("Enter discount rate (e.g. 0.10 for 10%, 0 or 'none' for no discount): ");
-                        String discInput = scanner.nextLine();
+                    try {
+                        discount = Double.parseDouble(scanner.nextLine());
+                    } catch (Exception e) { discount = 0; }
 
-                        if (discInput.equalsIgnoreCase("none")) {
-                            discount = 0;
-                            break;
-                        }
+                    registrar.calculateAndSetTuition(assessId, selectedSection, discount);
 
-                        try {
-                            discount = Double.parseDouble(discInput);
-                            if (discount >= 0 && discount <= 1) break; // Success!
-                            System.out.println(">>> [WARNING] Discount must be between 0 and 1 (e.g., 0.15).");
-                        } catch (NumberFormatException e) {
-                            System.out.println(">>> [ERROR] Invalid input! Please enter a valid decimal number or 'none'.");
-                        }
-                    }
-
-                    registrar.calculateAndSetTuition(assessId, units, discount);
                     break;
-
                 case "6":
                     System.out.print("Enter Student ID to pay: ");
                     String payId = scanner.nextLine();
@@ -298,12 +290,13 @@ public class Main {
             System.out.println("2. View Institutional Hierarchy");
             System.out.println("3. Add Section to Department");
             System.out.println("4. Enroll Student to Section");
-            System.out.println("5. Assign Instructor to Section");
-            System.out.println("6. Back to Main");
+            System.out.println("5. Assign Course to Section");
+            System.out.println("6. Assign Instructor to Section");
+            System.out.println("7. Back to Main");
             System.out.print("Choice: ");
             String action = scanner.nextLine();
 
-            if (action.equals("6")) return;
+            if (action.equals("7")) return;
 
             switch (action) {
                 case "1":
@@ -381,6 +374,16 @@ public class Main {
                     registrar.enrollStudentToSection(enrollId, enrollDept, enrollSec);
                     break;
                 case "5":
+                    System.out.print("Enter Course Code: ");
+                    String cCode = scanner.nextLine();
+                    System.out.print("Enter Department Name: ");
+                    String dName = scanner.nextLine();
+                    System.out.print("Enter Section Name: ");
+                    String sName = scanner.nextLine();
+
+                    registrar.assignCourseToSection(cCode, dName, sName);
+                    break;
+                case "6":
                     System.out.print("Enter Instructor ID to assign: ");
                     String instId = scanner.nextLine();
                     System.out.print("Enter Department Name: ");

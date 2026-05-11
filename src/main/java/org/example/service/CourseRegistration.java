@@ -46,4 +46,13 @@ public class CourseRegistration implements CourseReg {
         }
         System.out.println(">>> Course not found.");
     }
+    @Override
+    public Course findCourseByID(String courseID) {
+        for (Course c : courseList) {
+            if (c.getCourseID().equalsIgnoreCase(courseID)) {
+                return c;
+            }
+        }
+        return null;
+    }
 }

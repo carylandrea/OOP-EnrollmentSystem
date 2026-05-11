@@ -7,4 +7,5 @@ public interface CourseReg {
     void updateCourse(Course course);
     void removeCourse(Course course);
     void getAllCourses();
+    Course findCourseByID(String courseID);
 }

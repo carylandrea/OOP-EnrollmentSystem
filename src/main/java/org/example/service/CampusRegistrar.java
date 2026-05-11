@@ -41,28 +41,26 @@ public class CampusRegistrar {
 
 
     // 1. Tuition Management
-    public void calculateAndSetTuition(String studentId, int units, double discountRate) {
+    public void calculateAndSetTuition(String studentId, Section section, double discountRate) {
         Student actualStudent = studentService.findStudentByID(studentId);
 
-        if (actualStudent != null) {
-            tuitionService.calculateTuition(actualStudent, units, discountRate);
+        if (actualStudent != null && section != null) {
+            tuitionService.calculateTuition(actualStudent, section, discountRate);
         } else {
-            System.out.println("Student ID not found!");
+            System.out.println(">>> [ERROR] Student or Section not found!");
         }
     }
 
-    // Process payment
     public void processStudentPayment(String studentId, double amount) {
         Student actualStudent = studentService.findStudentByID(studentId);
 
         if (actualStudent != null) {
             tuitionService.makePayment(actualStudent, amount);
         } else {
-            System.out.println("Student ID not found!");
+            System.out.println(">>> [ERROR] Student ID not found!");
         }
     }
 
-    // Check Balance
     public void checkStudentBalance(String studentId) {
         Student actualStudent = studentService.findStudentByID(studentId);
 
@@ -73,10 +71,9 @@ public class CampusRegistrar {
             System.out.println("Remaining Balance: PHP " + balance);
             System.out.println("Status: " + (balance <= 0 ? "FULLY PAID" : "WITH OUTSTANDING BALANCE"));
         } else {
-            System.out.println("Student ID not found!");
+            System.out.println(">>> [ERROR] Student ID not found!");
         }
     }
-
     // 3. Institutional Hierarchy Viewing
     public void displayHierarchy(Department dept) {
         System.out.println("\n=== INSTITUTIONAL HIERARCHY ===");
@@ -177,5 +174,34 @@ public class CampusRegistrar {
 
         targetSection.setAssignedInstructor(instructor);
         System.out.println(">>> [SUCCESS] Instructor " + instructor.getPersonName() + " assigned to teach " + targetSection.getSectionName() + "!");
+    }
+    public void assignCourseToSection(String courseCode, String deptName, String sectionName) {
+        Course course = courseService.findCourseByID(courseCode);
+        Department dept = departmentService.findDepartmentByName(deptName);
+
+        if (course == null) {
+            System.out.println(">>> [ERROR] Course code '" + courseCode + "' not found!");
+            return;
+        }
+
+        if (dept == null) {
+            System.out.println(">>> [ERROR] Department '" + deptName + "' not found!");
+            return;
+        }
+
+        Section targetSection = null;
+        for (Section sec : dept.getSectionLists()) {
+            if (sec.getSectionName().equalsIgnoreCase(sectionName)) {
+                targetSection = sec;
+                break;
+            }
+        }
+
+        if (targetSection != null) {
+            targetSection.setAssignedCourse(course); // ITO YUNG MAGIC LINE! ✨
+            System.out.println(">>> [SUCCESS] Course " + course.getCourseName() + " assigned to " + sectionName);
+        } else {
+            System.out.println(">>> [ERROR] Section not found!");
+        }
     }
 }
