@@ -1,52 +1,35 @@
 package org.example.model;
 
 public class Course {
-    private int courseID;
+    private String courseID;
     private String courseName;
-    private String courseProgram;
+    private double price;
+    private int units;
 
-    public Course() {
 
-    }
-
-    public Course(int courseID, String courseName, String courseProgram) {
+    public Course(String courseID, String courseName, double price, int units) {
         this.courseID = courseID;
         this.courseName = courseName;
-        this.courseProgram = courseProgram;
+        this.price = price;
+        this.units = units;
     }
 
-    public int getCourseID() {
-        return courseID;
+    public String getCourseID() { return courseID; }
+    public void setCourseID(String courseID) { this.courseID = courseID; }
 
-    }
+    public String getCourseName() { return courseName; }
+    public void setCourseName(String courseName) { this.courseName = courseName; }
 
-    public void setCourseID(int courseID) {
-        this.courseID = courseID;
+    public double getPrice() { return price; }
 
-    }
-
-    public String getCourseName() {
-        return courseName;
-
-    }
-
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
-
-    }
-
-    public String getCourseProgram() {
-        return courseProgram;
-
-    }
-
-    public void setCourseProgram(String courseProgram) {
-        this.courseProgram = courseProgram;
-    }
+    public int getUnits() { return units; }
+    public void setUnits(int units) { this.units = units; }
 
     public void display() {
-        System.out.println("Course ID: " + getCourseID());
-        System.out.println("Course Name: " + getCourseName());
-        System.out.println("Course Program: " + getCourseProgram() + "\n");
+        System.out.println("Course ID   : " + courseID);
+        System.out.println("Course Name : " + courseName);
+        System.out.println("Course Price : " + price);
+
+        System.out.println("-----------------------");
     }
 }
