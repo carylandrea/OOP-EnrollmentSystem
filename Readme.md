@@ -13,7 +13,8 @@ application, this project serves as a demonstration of scalable software archite
 **Automated Tuition Engine**: Precise tuition calculation based on course units, course per rate, and student's discounts.
 **Section & Course Management:** Efficient assignment of instructors to specialized courses and systematic organization of 
 academic sections.
----## **Advanced Features**
+---
+## **Advanced Features**
 These features ensure the system is "Production-Ready" and resilient:
 **Data Integrity:** A validation logic layer that intercepts and rejects duplicate Student IDs to prevent database 
 corruption and maintain record accuracy.
@@ -21,7 +22,8 @@ corruption and maintain record accuracy.
 phase.
 **Smart Capacity Validation:** A proactive guard logic that automatically prevents enrollment once a section reaches its
 defined maximum capacity.
----## **JUNIT: Automated Testing**
+---
+## **JUNIT: Automated Testing**
 This project emphasizes 100% Logic Verification using the JUnit 5 framework. The AAA (Arrange, Act, Assert) pattern was 
 strictly followed to ensure a clean and professional test suite:
 - Course Management Test
