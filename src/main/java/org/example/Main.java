@@ -18,7 +18,7 @@ public class Main {
         registrar = new CampusRegistrar(studentService, courseService, departmentService, instructorService, tuitionService);
 
         while (true) {
-            System.out.println("\n--- CAMPUS SYSTEM MENU ---");
+            System.out.println("\n---- CAMPUS SYSTEM MENU ----");
             System.out.println("1. Student Management");
             System.out.println("2. Instructor Management");
             System.out.println("3. Course Management");
