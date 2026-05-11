@@ -53,30 +53,44 @@ public class Main {
 
             switch (action) {
                 case "1":
-                    System.out.print("Enter Code: "); String code = scanner.nextLine();
-                    System.out.print("Enter Description: "); String desc = scanner.nextLine();
-                    System.out.print("Enter Price: ");
-                    double price = scanner.nextDouble();
+                    System.out.print("Enter Course Code: ");
+                    String code = scanner.nextLine();
+                    System.out.print("Enter Course Description: ");
+                    String desc = scanner.nextLine();
+                    System.out.print("Enter Number of Units: ");
+                    int units = scanner.nextInt();
+                    System.out.print("Enter Rate per Unit: ");
+                    double rate = scanner.nextDouble();
                     scanner.nextLine();
 
-                    registrar.addCourse(new Course(code, desc, price));
+                    double totalPrice = rate * units;
+
+                    registrar.addCourse(new Course(code, desc, totalPrice, units));
+
+                    System.out.println(">>> Total Price calculated: " + units + " units x " + rate + " = " + totalPrice);
                     break;
                 case "2":
                     registrar.getAllCourses();
                     break;
                 case "3":
-                    System.out.print("Enter Code to update: "); String uCode = scanner.nextLine();
-                    System.out.print("New Description: "); String uDesc = scanner.nextLine();
-
-                    System.out.print("New Price: ");
+                    System.out.print("Enter Code to update: ");
+                    String uCode = scanner.nextLine();
+                    System.out.print("New Description: ");
+                    String uDesc = scanner.nextLine();
+                    System.out.print("New Number of Units: "); // Dagdag input
+                    int uUnits = scanner.nextInt();
+                    System.out.print("New Rate per Unit: ");
                     double uPrice = scanner.nextDouble();
                     scanner.nextLine();
 
-                    registrar.updateCourse(new Course(uCode, uDesc, uPrice));
+                    registrar.updateCourse(new Course(uCode, uDesc, uPrice, uUnits));
                     break;
+
                 case "4":
-                    System.out.print("Enter Code to delete: "); String rCode = scanner.nextLine();
-                    registrar.removeCourse(new Course(rCode, "", 0.0));
+                    System.out.print("Enter Code to delete: ");
+                    String rCode = scanner.nextLine();
+
+                    registrar.removeCourse(new Course(rCode, "", 0.0, 0));
                     break;
                 default:
                     System.out.println("Invalid choice.");

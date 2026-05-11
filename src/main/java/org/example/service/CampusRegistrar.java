@@ -91,7 +91,8 @@ public class CampusRegistrar {
             // COURSE AND PRICE DISPLAY
             Course assigned = sec.getAssignedCourse();
             if (assigned != null) {
-                System.out.println("      |_ COURSE: " + assigned.getCourseName() + " | Price: PHP " + assigned.getPrice());
+                System.out.println("      |_ COURSE: " + assigned.getCourseName() +
+                        " (" + assigned.getUnits() + " Units)");
             } else {
                 System.out.println("      |_ COURSE: TBA");
             }

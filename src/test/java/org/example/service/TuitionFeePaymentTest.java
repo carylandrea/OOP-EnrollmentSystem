@@ -20,8 +20,7 @@ class TuitionRegistrationTest {
         tuitionService = new TuitionRegistration();
         testStudent = new Student("S101", "Test Student", "BSIT");
 
-        testCourse = new Course("IT101", "Java Programming", 5000.0);
-
+        testCourse = new Course("IT101", "Java Programming", 1000.0, 3);
         testSection = new Section("BSIT-1A", 40);
         testSection.setAssignedCourse(testCourse);
     }
@@ -45,7 +44,7 @@ class TuitionRegistrationTest {
     @Test
     @DisplayName("Process Partial Payment")
     void shouldUpdateBalanceAfterPayment() {
-        tuitionService.calculateTuition(testStudent, testSection, 0.0); // 5000 balance
+        tuitionService.calculateTuition(testStudent, testSection, 0.0);
         tuitionService.makePayment(testStudent, 500.0);
 
         assertEquals(4500.0, testStudent.getTuitionDetails().getBalance());

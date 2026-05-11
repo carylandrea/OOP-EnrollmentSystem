@@ -11,18 +11,29 @@ public class TuitionRegistration implements TuitionReg {
         Course course = section.getAssignedCourse();
 
         if (course != null) {
-            double basePrice = course.getPrice();
+            double ratePerUnit = course.getPrice();
+            int units = course.getUnits();
+            double basePrice = ratePerUnit * units;
+
             double discountAmount = basePrice * discountRate;
             double discountedTotal = basePrice - discountAmount;
 
             student.getTuitionDetails().setTotalTuitionFee(discountedTotal);
             student.getTuitionDetails().setBalance(discountedTotal);
 
-            System.out.println(">>> Assessment done for " + student.getPersonName());
+            System.out.println("\n>>> [ ADVANCED TUITION ASSESSMENT ]");
             System.out.println(">>> Course: " + course.getCourseName());
-            System.out.println(">>> Base Price: PHP " + basePrice);
-            System.out.println(">>> Discount: " + (discountRate * 100) + "% (-PHP " + discountAmount + ")");
-            System.out.println(">>> FINAL TUITION: PHP " + discountedTotal);
+            System.out.println(">>> Load: " + units + " Units @ PHP " + ratePerUnit + "/unit");
+            System.out.println(">>> Total Base Fee: PHP " + basePrice);
+
+            if(discountRate > 0) {
+                System.out.println(">>> Scholarship Applied: " + (discountRate * 100) + "%");
+                System.out.println(">>> Amount Saved: PHP " + discountAmount);
+
+            }
+            System.out.println(">>> FINAL AMOUNT TO PAY: PHP " + discountedTotal);
+        } else {
+            System.out.println(">>> [ERROR] No course assigned to section!");
         }
     }
 
