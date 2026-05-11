@@ -32,7 +32,7 @@ class TuitionRegistrationTest {
         // ACT
         tuitionService.calculateTuition(testStudent, testSection, 0.0);
 
-        // ASSERT: Expected is 3000.0 (1000 * 3)
+        // ASSERT:
         assertEquals(3000.0, testStudent.getTuitionDetails().getBalance(), "Balance should be 3000 for 3 units at 1000/unit");
     }
 
