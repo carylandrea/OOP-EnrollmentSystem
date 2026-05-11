@@ -12,15 +12,17 @@ public class TuitionRegistration implements TuitionReg {
 
         if (course != null) {
             double basePrice = course.getPrice();
-            double discountedTotal = basePrice - (basePrice * discountRate);
+            double discountAmount = basePrice * discountRate;
+            double discountedTotal = basePrice - discountAmount;
 
             student.getTuitionDetails().setTotalTuitionFee(discountedTotal);
             student.getTuitionDetails().setBalance(discountedTotal);
 
             System.out.println(">>> Assessment done for " + student.getPersonName());
-            System.out.println(">>> Course: " + course.getCourseName() + " | Price: PHP " + basePrice);
-        } else {
-            System.out.println(">>> [ERROR] No course assigned to section: " + section.getSectionName());
+            System.out.println(">>> Course: " + course.getCourseName());
+            System.out.println(">>> Base Price: PHP " + basePrice);
+            System.out.println(">>> Discount: " + (discountRate * 100) + "% (-PHP " + discountAmount + ")");
+            System.out.println(">>> FINAL TUITION: PHP " + discountedTotal);
         }
     }
 

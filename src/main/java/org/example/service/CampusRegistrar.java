@@ -84,20 +84,31 @@ public class CampusRegistrar {
             return;
         }
 
+        // displayHierarchy
         for (Section sec : dept.getSectionLists()) {
             System.out.println("   |_ SECTION: " + sec.getSectionName() + " (Capacity: " + sec.getMaxCapacity() + ")");
 
+            // COURSE AND PRICE DISPLAY
+            Course assigned = sec.getAssignedCourse();
+            if (assigned != null) {
+                System.out.println("      |_ COURSE: " + assigned.getCourseName() + " | Price: PHP " + assigned.getPrice());
+            } else {
+                System.out.println("      |_ COURSE: TBA");
+            }
+
+            // INSTRUCTOR DISPLAY
             Instructor ins = sec.getAssignedInstructor();
             System.out.println("      |_ INSTRUCTOR: " + (ins != null ? ins.getPersonName() : "TBA"));
 
             System.out.println("      |_ ENROLLED STUDENTS:");
-            if (sec.getEnrolledStudents().isEmpty()) {
+            if (sec.getEnrolledStudents() == null || sec.getEnrolledStudents().isEmpty()) {
                 System.out.println("         - (No students yet)");
             } else {
                 for (Student s : sec.getEnrolledStudents()) {
                     System.out.println("         - [" + s.getPersonID() + "] " + s.getPersonName());
                 }
             }
+            System.out.println();
         }
     }
 

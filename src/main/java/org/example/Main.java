@@ -287,11 +287,12 @@ public class Main {
         while (true) {
             System.out.println("\n[ DEPARTMENT MANAGEMENT ]");
             System.out.println("1. Add Department");
-            System.out.println("2. View Institutional Hierarchy");
-            System.out.println("3. Add Section to Department");
-            System.out.println("4. Enroll Student to Section");
-            System.out.println("5. Assign Course to Section");
-            System.out.println("6. Assign Instructor to Section");
+            System.out.println("2. Add Section to Department");
+            System.out.println("3. Assign Instructor to Section");
+            System.out.println("4. Assign Course to Section");
+            System.out.println("5. Enroll Student to Section");
+            System.out.println("6. View Institutional Hierarchy");
+
             System.out.println("7. Back to Main");
             System.out.print("Choice: ");
             String action = scanner.nextLine();
@@ -308,26 +309,14 @@ public class Main {
                     }
                     registrar.addDepartment(new Department(deptName));
                     break;
+
                 case "2":
-                    System.out.println("\n--- VIEW INSTITUTIONAL HIERARCHY ---");
-                    System.out.print("Enter Department Name to view: ");
-                    String viewDept = scanner.nextLine();
-                    Department deptToView = registrar.getDepartment(viewDept);
-
-                    if (deptToView != null) {
-                        registrar.displayHierarchy(deptToView);
-                    } else {
-                        System.out.println(">>> [ERROR] Department '" + viewDept + "' not found.");
-                    }
-                    break;
-
-                case "3":
-                    System.out.print("Enter Department Name where you want to add the section: ");
+                    System.out.print("Enter Department Name: ");
                     String targetDeptName = scanner.nextLine();
                     Department targetDept = registrar.getDepartment(targetDeptName);
 
                     if (targetDept != null) {
-                        System.out.print("Enter Section Name (e.g., BSIT-1A): ");
+                        System.out.print("Enter Section Name: ");
                         String secName = scanner.nextLine();
                         boolean isDuplicate = false;
 
@@ -363,17 +352,18 @@ public class Main {
                         System.out.println(">>> [ERROR] Department '" + targetDeptName + "' not found! Please add it first (Option 1).");
                     }
                     break;
-                case "4":
-                    System.out.print("Enter Student ID to enroll: ");
-                    String enrollId = scanner.nextLine();
-                    System.out.print("Enter Department Name: ");
-                    String enrollDept = scanner.nextLine();
-                    System.out.print("Enter Section Name: ");
-                    String enrollSec = scanner.nextLine();
 
-                    registrar.enrollStudentToSection(enrollId, enrollDept, enrollSec);
+                case "3":
+                    System.out.print("Enter Instructor ID: ");
+                    String instId = scanner.nextLine();
+                    System.out.print("Enter Department Name: ");
+                    String instDept = scanner.nextLine();
+                    System.out.print("Enter Section Name: ");
+                    String instSec = scanner.nextLine();
+
+                    registrar.assignInstructorToSection(instId, instDept, instSec);
                     break;
-                case "5":
+                case "4":
                     System.out.print("Enter Course Code: ");
                     String cCode = scanner.nextLine();
                     System.out.print("Enter Department Name: ");
@@ -383,15 +373,29 @@ public class Main {
 
                     registrar.assignCourseToSection(cCode, dName, sName);
                     break;
-                case "6":
-                    System.out.print("Enter Instructor ID to assign: ");
-                    String instId = scanner.nextLine();
-                    System.out.print("Enter Department Name: ");
-                    String instDept = scanner.nextLine();
-                    System.out.print("Enter Section Name: ");
-                    String instSec = scanner.nextLine();
 
-                    registrar.assignInstructorToSection(instId, instDept, instSec);
+                case "5":
+                    System.out.print("Enter Student ID to enroll: ");
+                    String enrollId = scanner.nextLine();
+                    System.out.print("Enter Department Name: ");
+                    String enrollDept = scanner.nextLine();
+                    System.out.print("Enter Section Name: ");
+                    String enrollSec = scanner.nextLine();
+
+                    registrar.enrollStudentToSection(enrollId, enrollDept, enrollSec);
+                    break;
+
+                case "6":
+                    System.out.println("\n--- VIEW INSTITUTIONAL HIERARCHY ---");
+                    System.out.print("Enter Department Name to view: ");
+                    String viewDept = scanner.nextLine();
+                    Department deptToView = registrar.getDepartment(viewDept);
+
+                    if (deptToView != null) {
+                        registrar.displayHierarchy(deptToView);
+                    } else {
+                        System.out.println(">>> [ERROR] Department '" + viewDept + "' not found.");
+                    }
                     break;
 
                 default:
