@@ -18,8 +18,9 @@ class TuitionRegistrationTest {
     @BeforeEach
     void setup() {
         tuitionService = new TuitionRegistration();
-        testStudent = new Student("S101", "Test Student", "BSIT");
+        testStudent = new Student("S101", "Caryl Andrea", "BSIT");
 
+        // ARRANGE: 1000 per unit * 3 units = 3000.0 Total Base Price
         testCourse = new Course("IT101", "Java Programming", 1000.0, 3);
         testSection = new Section("BSIT-1A", 40);
         testSection.setAssignedCourse(testCourse);
@@ -28,34 +29,42 @@ class TuitionRegistrationTest {
     @Test
     @DisplayName("Calculate Tuition Fee - No Discount")
     void shouldCalculateCorrectTuitionFeeWithNoDiscount() {
+        // ACT
         tuitionService.calculateTuition(testStudent, testSection, 0.0);
 
-        assertEquals(5000.0, testStudent.getTuitionDetails().getBalance());
+        // ASSERT: Expected is 3000.0 (1000 * 3)
+        assertEquals(3000.0, testStudent.getTuitionDetails().getBalance(), "Balance should be 3000 for 3 units at 1000/unit");
     }
 
     @Test
     @DisplayName("Calculate Tuition Fee - 10% Discount")
     void shouldCalculateCorrectTuitionFeeWithDiscount() {
+        // ACT: 3000 - (3000 * 0.10) = 2700
         tuitionService.calculateTuition(testStudent, testSection, 0.10);
 
-        assertEquals(4500.0, testStudent.getTuitionDetails().getBalance());
+        // ASSERT
+        assertEquals(2700.0, testStudent.getTuitionDetails().getBalance(), "Balance should be 2700 after 10% discount");
     }
 
     @Test
     @DisplayName("Process Partial Payment")
     void shouldUpdateBalanceAfterPayment() {
-        tuitionService.calculateTuition(testStudent, testSection, 0.0);
+        // ARRANGE & ACT
+        tuitionService.calculateTuition(testStudent, testSection, 0.0); // 3000 balance
         tuitionService.makePayment(testStudent, 500.0);
 
-        assertEquals(4500.0, testStudent.getTuitionDetails().getBalance());
+        // ASSERT: 3000 - 500 = 2500
+        assertEquals(2500.0, testStudent.getTuitionDetails().getBalance(), "Balance should decrease to 2500 after 500 payment");
     }
 
     @Test
     @DisplayName("Check if Fully Paid")
     void shouldBeFullyPaid() {
-        tuitionService.calculateTuition(testStudent, testSection, 0.0);
-        tuitionService.makePayment(testStudent, 5000.0);
+        // ARRANGE & ACT
+        tuitionService.calculateTuition(testStudent, testSection, 0.0); // 3000 balance
+        tuitionService.makePayment(testStudent, 3000.0); // Pay all
 
-        assertTrue(testStudent.getTuitionDetails().getBalance() <= 0);
+        // ASSERT
+        assertTrue(testStudent.getTuitionDetails().getBalance() <= 0, "Balance should be zero or less after full payment");
     }
 }
