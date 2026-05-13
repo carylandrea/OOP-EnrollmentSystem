@@ -21,7 +21,7 @@ corruption and maintain record accuracy.
 **Dynamic Scholarship Integration:** Real-time application of various scholarship discount rates during the enrollment 
 phase.
 **Smart Capacity Validation:** A proactive guard logic that automatically prevents enrollment once a section reaches its
-defined maximum capacity.
+defined maximum capacity. 
 ---
 ## **JUNIT: Automated Testing**
 This project emphasizes 100% Logic Verification using the JUnit 5 framework. The AAA (Arrange, Act, Assert) pattern was 
